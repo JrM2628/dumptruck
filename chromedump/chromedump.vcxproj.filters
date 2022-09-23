@@ -24,6 +24,9 @@
     <ClCompile Include="shell.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChromiumDump.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="json.hpp">
@@ -33,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sqlite3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ChromiumDump.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
