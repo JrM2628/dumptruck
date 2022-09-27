@@ -6,10 +6,8 @@
 #include <wincrypt.h>
 #include <bcrypt.h>
 #include <ntstatus.h>
-#include "json.hpp"
-#include "sqlite3.h"
-#pragma comment(lib, "Crypt32.lib")
-#pragma comment(lib, "Bcrypt.lib")
+#include <nlohmann/json.hpp>
+#include <sqlite3.h>
 using json = nlohmann::json;
 using namespace std;
 #define AES_KEY_BYTES 32
