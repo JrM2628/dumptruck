@@ -36,3 +36,8 @@ A simple object-oriented C++ implementation to dump browser cookies and credenti
     }
 }
 ```
+
+### To Build
+1. Install [vcpkg](https://vcpkg.io/en/getting-started.html) to manage sqlite3 and nlohmann-json dependencies 
+2. Ensure [vcpkg.json](vcpkg.json) is in build directory
+3. Build in Visual Studio as you usually would
