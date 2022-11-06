@@ -21,9 +21,9 @@ A simple object-oriented C++ implementation to dump browser cookies and credenti
     "creds": {
         "chrome": [
             {
-               "hostkey": ".example.com",
-               "name": "userid",
-               "value": "fb43ed08-274e-4deb-8d23-427b6e273e1c"
+               "pass": "iLoooooveDumptruck.exe",
+               "url": "http://example.com",
+               "user": "JrM2628"
             }
         ],   
         "msedge": [
